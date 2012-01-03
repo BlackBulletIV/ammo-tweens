@@ -12,7 +12,8 @@ function Entity:animate(duration, t)
   t.onComplete = nil
   
   local tween = AttrTween:new(self, duration, t, Tween.ONESHOT, onComplete, ease)
-  (self._world or ammo._world):add(tween)
+  local world = self._world or ammo._world
+  world:add(tween)
   return tween:start()
 end
 
