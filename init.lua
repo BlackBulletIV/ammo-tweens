@@ -1,7 +1,7 @@
 local path = ({...})[1]:gsub("%.init", "")
 require(path .. ".Tween")
 require(path .. ".AttrTween")
-require(path .. ".ease")
+ease = require(path .. ".ease")
 
 function Entity:animate(duration, t)
   if not ammo._world then return end

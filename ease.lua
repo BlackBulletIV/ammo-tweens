@@ -1,5 +1,3 @@
-ease = {}
-
 -- making these locals will make things slighly faster
 local tau = math.tau
 local b1 = 1 / 2.75
@@ -9,15 +7,17 @@ local b4 = 2.5 / 2.75
 local b5 = 2.25 / 2.75
 local b6 = 2.625 / 2.75
 
-function ease.quadIn(t)
+local t = {}
+
+function t.quadIn(t)
   return t * t
 end
 
-function ease.quadOut(t)
+function t.quadOut(t)
   return -t * (t - 2)
 end
 
-function ease.quadInOut(t)
+function t.quadInOut(t)
   if t <= .5 then
     return t * t * 2
   else
@@ -26,16 +26,16 @@ function ease.quadInOut(t)
   end
 end
 
-function ease.cubeIn(t)
+function t.cubeIn(t)
   return t * t * t
 end
 
-function ease.cubeOut(t)
+function t.cubeOut(t)
   t = t - 1
   return 1 + t * t * t
 end
 
-function ease.cubeInOut(t)
+function t.cubeInOut(t)
   if t <= .5 then
     return t * t * t * 4
   else
@@ -44,16 +44,16 @@ function ease.cubeInOut(t)
   end
 end
 
-function ease.quartIn(t)
+function t.quartIn(t)
   return t * t * t * t
 end
 
-function ease.quartOut(t)
+function t.quartOut(t)
   t = t - 1
   return 1 - t * t * t * t
 end
 
-function ease.quartInOut(t)
+function t.quartInOut(t)
   if t <= .5 then
     return t * t * t * t * 8
   else
@@ -62,16 +62,16 @@ function ease.quartInOut(t)
   end
 end
 
-function ease.quintIn(t)
+function t.quintIn(t)
   return t * t * t * t * t
 end
 
-function ease.quintOut(t)
+function t.quintOut(t)
   t = t - 1
   return t * t * t * t * t + 1
 end
 
-function ease.quintInOut(t)
+function t.quintInOut(t)
   t = t * 2
   if t < 1 then
     return (t * t * t * t * t) / 2
@@ -81,19 +81,19 @@ function ease.quintInOut(t)
   end
 end
 
-function ease.sineIn(t)
+function t.sineIn(t)
   return -math.cos(tau / 4 * t) + 1
 end
 
-function ease.sineOut(t)
+function t.sineOut(t)
   return math.sin(tau / 4 * t)
 end
 
-function ease.sineInOut(t)
+function t.sineInOut(t)
   return -math.cos(math.pi * t) / 2 + .5
 end
 
-function ease.bounceIn(t)
+function t.bounceIn(t)
   t = 1 - t
   if t < b1 then return 1 - 7.5625 * t * t end
   if t < b2 then return 1 - (7.5625 * (t - b3) * (t - b3) + .75) end
@@ -101,14 +101,14 @@ function ease.bounceIn(t)
   return 1 - (7.5625 * (t - b6) * (t - b6) + .984375)
 end
 
-function ease.bounceOut(t)
+function t.bounceOut(t)
   if t < b1 then return 7.5625 * t * t end
   if t < b2 then return 7.5625 * (t - b3) * (t - b3) + .75 end
   if t < b4 then return 7.5625 * (t - b5) * (t - b5) + .9375 end
   return 7.5625 * (t - b6) * (t - b6) + .984375
 end
 
-function ease.bounceInOut(t)
+function t.bounceInOut(t)
   if t < .5 then
     t = 1 - t * 2
     if t < b1 then return (1 - 7.5625 * t * t) / 2 end
@@ -124,15 +124,15 @@ function ease.bounceInOut(t)
   end
 end
 
-function ease.circIn(t)
+function t.circIn(t)
   return -(math.sqrt(1 - t * t) - 1)
 end
 
-function ease.circOut(t)
+function t.circOut(t)
   return math.sqrt(1 - (t - 1) * (t - 1))
 end
 
-function ease.circInOut(t)
+function t.circInOut(t)
   if t <= .5 then
     return (math.sqrt(1 - t * t * 4) - 1) / -2
   else
@@ -140,15 +140,15 @@ function ease.circInOut(t)
   end
 end
 
-function ease.expoIn(t)
+function t.expoIn(t)
   return math.pow(2, 10 * (t - 1))
 end
 
-function ease.expoOut(t)
+function t.expoOut(t)
   return -math.pow(2, -10 * t) + 1
 end
 
-function ease.expoInOut(t)
+function t.expoInOut(t)
   if t < .5 then
     return math.pow(2, 10 * (t * 2 - 1)) / 2
   else
@@ -156,18 +156,20 @@ function ease.expoInOut(t)
   end
 end
 
-function ease.backIn(t)
+function t.backIn(t)
   return t * t * (2.70158 * t - 1.70158)
 end
 
-function ease.backOut(t)
+function t.backOut(t)
   t = t - 1
   return 1 - t * t * (-2.70158 * t - 1.70158)
 end
 
-function ease.backInOut(t)
+function t.backInOut(t)
   t = t * 2
   if t < 1 then return t * t * (2.70158 * t - 1.70158) / 2 end
   t = t - 2
   return (1 - t * t * (-2.70158 * t - 1.70158)) / 2 + .5
 end
+
+return t
