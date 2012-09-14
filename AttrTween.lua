@@ -1,7 +1,7 @@
 AttrTween = class('AttrTween', Tween)
 
-function AttrTween:initialize(obj, duration, values, tweenType, complete, ease)
-  Tween.initialize(self, duration, tweenType, complete, ease)
+function AttrTween:initialize(obj, duration, values, ease, complete)
+  Tween.initialize(self, duration, ease, complete)
   self._obj = obj
   self._start = {}
   self._range = {}

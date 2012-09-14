@@ -9,6 +9,10 @@ local b6 = 2.625 / 2.75
 
 local t = {}
 
+function t.linear(t)
+  return t
+end
+
 function t.quadIn(t)
   return t * t
 end
