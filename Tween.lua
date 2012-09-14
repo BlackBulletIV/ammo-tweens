@@ -5,10 +5,10 @@ Tween = class('Tween')
 Tween._mt = {}
 
 function Tween._mt:__index(key)
-  if self.class.__classDict[key] then
-    return self.class.__classDict[key]
-  elseif rawget(self, '_' .. key) then
-    return self['_' .. key]
+  local result = rawget(self, "_" .. key) or self.class.__instanceDict[key]
+  
+  if result then
+    return result
   elseif key == 'scale' then
     return self._t
   elseif key == 'elapsed' then
@@ -38,19 +38,14 @@ Tween:enableAccessors()
 
 -- METHODS --
 
-function Tween:initialize(duration, ease, complete)
-  -- settings
+function Tween:initialize(duration, ease, complete, ...)
   self.active = false
-  
-  -- functions
   self.ease = ease
   self.complete = complete
-  
-  -- time info
+  self.completeArgs = { ... }
   self._target = duration or 1
   self._time = 0
   self._t = 0
-  
   self:applyAccessors()
 end
 
@@ -67,7 +62,7 @@ function Tween:update(dt)
     self._t = 1
     self._time = self._target
     self:_finish()
-    if self.complete then self.complete() end
+    if self.complete then self.complete(unpack(self.completeArgs)) end
   end
 end
 
