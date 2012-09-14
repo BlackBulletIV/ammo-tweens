@@ -90,7 +90,7 @@ function t.sineOut(t)
 end
 
 function t.sineInOut(t)
-  return -math.cos(math.pi * t) / 2 + .5
+  return -math.cos(tau / 2 * t) / 2 + .5
 end
 
 function t.bounceIn(t)
