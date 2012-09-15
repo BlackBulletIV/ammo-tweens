@@ -46,23 +46,36 @@ function Tween:initialize(duration, ease, complete, ...)
   self._target = duration or 1
   self._time = 0
   self._t = 0
+  self._delay = 0
+  self._delayTime = 0
+  
+  if type(self._target) == "string" then
+    local tweenTime, delayTime = self._target:match("([%w%.%-]+):([%w%.%-]+)")
+    self._target = tonumber(tweenTime)
+    self._delay = tonumber(delayTime)
+  end
+  
   self:applyAccessors()
 end
 
 function Tween:update(dt)
-  self._time = self._time + dt
-  self._t = self._time / self._target
-  
-  if self.ease and self._t > 0 and self._t < 1 then
-    self._t = self.ease(self._t)
-  end
-  
-  -- are we done?
-  if self._time >= self._target then
-    self._t = 1
-    self._time = self._target
-    self:_finish()
-    if self.complete then self.complete(unpack(self.completeArgs)) end
+  if self._delayTime < self._delay then
+    self._delayTime = self._delayTime + dt
+  else
+    self._time = self._time + dt
+    self._t = self._time / self._target
+    
+    if self.ease and self._t > 0 and self._t < 1 then
+      self._t = self.ease(self._t)
+    end
+    
+    -- are we done?
+    if self._time >= self._target then
+      self._t = 1
+      self._time = self._target
+      self:_finish()
+      if self.complete then self.complete(unpack(self.completeArgs)) end
+    end
   end
 end
 

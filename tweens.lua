@@ -9,9 +9,9 @@ local function processTable(t)
   return t, ease, complete, completeArgs
 end
 
-function delay(secs, func)
+function delay(secs, func, ...)
   if not ammo._world then return end
-  local t = Tween:new(secs, nil, func)
+  local t = Tween:new(secs, nil, func, ...)
   ammo._world:add(t)
   return t:start()
 end
