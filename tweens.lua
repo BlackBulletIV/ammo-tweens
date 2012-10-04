@@ -9,6 +9,14 @@ local function processTable(t)
   return t, ease, complete, completeArgs
 end
 
+local function animate(self, duration, t, ease, complete, ...)
+  if not ammo._world then return end
+  local tween = AttrTween:new(self, duration, t, ease, complete, ...)
+  local world = self._world or ammo._world
+  world:add(tween)
+  return tween:start()
+end
+
 function delay(secs, func, ...)
   if not ammo._world then return end
   local t = Tween:new(secs, nil, func, ...)
@@ -23,10 +31,5 @@ function tween(obj, duration, t, ease, complete, ...)
   return tween:start()
 end
 
-function Entity:animate(duration, t, ease, complete, ...)
-  if not ammo._world then return end
-  local tween = AttrTween:new(self, duration, t, ease, complete, ...)
-  local world = self._world or ammo._world
-  world:add(tween)
-  return tween:start()
-end
+Entity.animate = animate
+Camera.animate = animate
