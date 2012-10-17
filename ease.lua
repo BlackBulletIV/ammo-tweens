@@ -6,6 +6,10 @@ local b3 = 1.5 / 2.75
 local b4 = 2.5 / 2.75
 local b5 = 2.25 / 2.75
 local b6 = 2.625 / 2.75
+local sin = math.sin
+local cos = math.cos
+local sqrt = math.sqrt
+local pow = math.pow
 
 local t = {}
 
@@ -86,15 +90,15 @@ function t.quintInOut(t)
 end
 
 function t.sineIn(t)
-  return -math.cos(tau / 4 * t) + 1
+  return -cos(tau / 4 * t) + 1
 end
 
 function t.sineOut(t)
-  return math.sin(tau / 4 * t)
+  return sin(tau / 4 * t)
 end
 
 function t.sineInOut(t)
-  return -math.cos(tau / 2 * t) / 2 + .5
+  return -cos(tau / 2 * t) / 2 + .5
 end
 
 function t.bounceIn(t)
@@ -129,34 +133,34 @@ function t.bounceInOut(t)
 end
 
 function t.circIn(t)
-  return -(math.sqrt(1 - t * t) - 1)
+  return -(sqrt(1 - t * t) - 1)
 end
 
 function t.circOut(t)
-  return math.sqrt(1 - (t - 1) * (t - 1))
+  return sqrt(1 - (t - 1) * (t - 1))
 end
 
 function t.circInOut(t)
   if t <= .5 then
-    return (math.sqrt(1 - t * t * 4) - 1) / -2
+    return (sqrt(1 - t * t * 4) - 1) / -2
   else
-    return (math.sqrt(1 - (t * 2 - 2) * (t * 2 - 2)) + 1) / 2
+    return (sqrt(1 - (t * 2 - 2) * (t * 2 - 2)) + 1) / 2
   end
 end
 
 function t.expoIn(t)
-  return math.pow(2, 10 * (t - 1))
+  return pow(2, 10 * (t - 1))
 end
 
 function t.expoOut(t)
-  return -math.pow(2, -10 * t) + 1
+  return -.pow(2, -10 * t) + 1
 end
 
 function t.expoInOut(t)
   if t < .5 then
-    return math.pow(2, 10 * (t * 2 - 1)) / 2
+    return pow(2, 10 * (t * 2 - 1)) / 2
   else
-    return (-math.pow(2, -10 * (t * 2 - 1)) + 2) / 2
+    return (-pow(2, -10 * (t * 2 - 1)) + 2) / 2
   end
 end
 
