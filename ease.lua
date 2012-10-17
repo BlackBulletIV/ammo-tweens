@@ -153,7 +153,7 @@ function t.expoIn(t)
 end
 
 function t.expoOut(t)
-  return -.pow(2, -10 * t) + 1
+  return -pow(2, -10 * t) + 1
 end
 
 function t.expoInOut(t)
